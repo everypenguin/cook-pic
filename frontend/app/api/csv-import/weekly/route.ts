@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase';
 
+export const dynamic = 'force-dynamic';
+
 function getStoreIdFromToken(request: NextRequest): string | null {
   const authHeader = request.headers.get('authorization');
   if (!authHeader?.startsWith('Bearer ')) {
@@ -76,7 +78,7 @@ export async function POST(request: NextRequest) {
       const rowNumber = i + 2;
 
       try {
-        if (record.曜日 === undefined && record.曜日 !== '0') {
+        if (record.曜日 === undefined || record.曜日 === '') {
           errors.push(`行${rowNumber}: 曜日が指定されていません`);
           continue;
         }
@@ -93,7 +95,7 @@ export async function POST(request: NextRequest) {
         }
 
         const price = record.価格 ? parseInt(record.価格) : null;
-        if (record.価格 && (isNaN(price) || price < 0)) {
+        if (record.価格 && (price === null || isNaN(price) || price < 0)) {
           errors.push(`行${rowNumber}: 価格は0以上の数値で指定してください`);
           continue;
         }
@@ -128,7 +130,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: results.length,
-      errors: errors.length,
+      errorCount: errors.length,
       results,
       errors: errors.length > 0 ? errors : undefined,
     });

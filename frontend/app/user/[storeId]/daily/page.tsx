@@ -112,7 +112,7 @@ export default function DailyMenuPage() {
           const displayCount = Math.max(4, Math.min(allMenus.length, 10));
           
           // 空のスロットを追加して4枚以上にする
-          const displayMenus = [...allMenus];
+          const displayMenus: (Menu | null)[] = [...allMenus];
           while (displayMenus.length < displayCount) {
             displayMenus.push(null);
           }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import api from '@/lib/api';
@@ -10,7 +10,7 @@ const MONTHS = [
   '7月', '8月', '9月', '10月', '11月', '12月'
 ];
 
-export default function MonthlyMenuCsvPage() {
+function MonthlyMenuCsvContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const yearParam = searchParams.get('year');
@@ -255,6 +255,14 @@ export default function MonthlyMenuCsvPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function MonthlyMenuCsvPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#F2F2F7] flex items-center justify-center">読み込み中...</div>}>
+      <MonthlyMenuCsvContent />
+    </Suspense>
   );
 }
 

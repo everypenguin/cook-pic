@@ -53,7 +53,7 @@ export default function WeeklyMenuPage() {
     const fetchData = async () => {
       try {
         const [menusRes, storeRes] = await Promise.all([
-          api.get(`/weekly-menus/${storeId}?week_start_date=${weekStartDate}`),
+          api.get(`/weekly-menus/by-store/${storeId}?week_start_date=${weekStartDate}`),
           api.get(`/stores/${storeId}`),
         ]);
         setMenus(menusRes.data);

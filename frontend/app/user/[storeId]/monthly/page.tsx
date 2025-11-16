@@ -41,7 +41,7 @@ export default function MonthlyMenuPage() {
     const fetchData = async () => {
       try {
         const [menusRes, storeRes] = await Promise.all([
-          api.get(`/monthly-menus/${storeId}?year=${selectedYear}&month=${selectedMonth}`),
+          api.get(`/monthly-menus/by-store/${storeId}?year=${selectedYear}&month=${selectedMonth}`),
           api.get(`/stores/${storeId}`),
         ]);
         setMenus(menusRes.data);

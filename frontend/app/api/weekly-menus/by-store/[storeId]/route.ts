@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 
+export const dynamic = 'force-dynamic';
+
 function getWeekStartDate(date: Date): Date {
   const d = new Date(date);
   const day = d.getDay();

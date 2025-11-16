@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase';
 
+export const dynamic = 'force-dynamic';
+
 // 認証ミドルウェア（簡易版）
 function getStoreIdFromToken(request: NextRequest): string | null {
   const authHeader = request.headers.get('authorization');

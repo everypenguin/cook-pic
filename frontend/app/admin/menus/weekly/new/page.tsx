@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import api from '@/lib/api';
@@ -24,7 +24,7 @@ function getWeekStartDate(date: Date): string {
   return monday.toISOString().split('T')[0];
 }
 
-export default function NewWeeklyMenuPage() {
+function NewWeeklyMenuContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const dayOfWeek = searchParams.get('day') ? parseInt(searchParams.get('day')!) : null;
@@ -225,6 +225,14 @@ export default function NewWeeklyMenuPage() {
         </form>
       </div>
     </div>
+  );
+}
+
+export default function NewWeeklyMenuPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#F2F2F7] flex items-center justify-center">読み込み中...</div>}>
+      <NewWeeklyMenuContent />
+    </Suspense>
   );
 }
 

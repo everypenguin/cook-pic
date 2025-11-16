@@ -1,3 +1,5 @@
+'use client';
+
 export default function HomePage() {
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#F2F2F7', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '16px' }}>
