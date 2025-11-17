@@ -124,13 +124,15 @@ export default function NewMenuPage() {
             
             if (uploadResponse.data?.url) {
               imageUrl = uploadResponse.data.url;
+              console.log('画像アップロード成功:', imageUrl);
             } else {
               console.warn('画像アップロードのURLが取得できませんでした。Base64を直接使用します。');
             }
           } catch (uploadError: any) {
             console.error('画像アップロードエラー:', uploadError);
-            // アップロードに失敗した場合、Base64を直接使用（後方互換性のため）
-            console.warn('画像アップロードに失敗しましたが、Base64を直接使用して続行します。');
+            const uploadErrorMsg = uploadError.response?.data?.error || uploadError.message || '画像のアップロードに失敗しました';
+            console.warn('画像アップロードに失敗しましたが、Base64を直接使用して続行します。', uploadErrorMsg);
+            // エラーを記録するが、処理は続行（Base64を使用）
           }
 
           await api.post('/menus/daily', {
@@ -154,10 +156,16 @@ export default function NewMenuPage() {
           
           if (err.response) {
             // サーバーからの応答がある場合
-            errorMsg = err.response.data?.error || err.response.statusText || `HTTP ${err.response.status}`;
+            const responseError = err.response.data?.error || err.response.data?.details || err.response.statusText;
+            errorMsg = `HTTP ${err.response.status}: ${responseError}`;
+            console.error(`メニュー${i + 1} 登録エラー:`, {
+              status: err.response.status,
+              error: err.response.data,
+              menuName: item.name,
+            });
           } else if (err.request) {
             // リクエストは送信されたが、応答がない場合（Network Error）
-            errorMsg = 'ネットワークエラー: サーバーに接続できませんでした。サーバーが起動しているか確認してください。';
+            errorMsg = 'ネットワークエラー: サーバーに接続できませんでした。';
             console.error('Network Error details:', {
               message: err.message,
               code: err.code,
@@ -170,6 +178,7 @@ export default function NewMenuPage() {
           } else {
             // リクエスト設定中にエラーが発生した場合
             errorMsg = err.message || 'リクエストの送信に失敗しました';
+            console.error('Request setup error:', err);
           }
           
           errors.push(`メニュー${i + 1} (${item.name || '無名'}): ${errorMsg}`);

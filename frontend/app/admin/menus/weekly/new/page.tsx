@@ -84,8 +84,8 @@ function NewWeeklyMenuContent() {
           }
         } catch (uploadError: any) {
           console.error('画像アップロードエラー:', uploadError);
-          // アップロードに失敗した場合、Base64を直接使用（後方互換性のため）
-          console.warn('画像アップロードに失敗しましたが、Base64を直接使用して続行します。');
+          const uploadErrorMsg = uploadError.response?.data?.error || uploadError.message || '画像のアップロードに失敗しました';
+          console.warn('画像アップロードに失敗しましたが、Base64を直接使用して続行します。', uploadErrorMsg);
           imageUrl = resizedImage;
         }
       }
@@ -101,7 +101,18 @@ function NewWeeklyMenuContent() {
 
       router.push('/admin/menus/weekly');
     } catch (err: any) {
-      setError(err.response?.data?.error || 'メニューの登録に失敗しました');
+      console.error('メニュー登録エラー:', err);
+      let errorMsg = 'メニューの登録に失敗しました';
+      
+      if (err.response) {
+        errorMsg = err.response.data?.error || err.response.data?.details || `HTTP ${err.response.status}: ${err.response.statusText}`;
+      } else if (err.request) {
+        errorMsg = 'ネットワークエラー: サーバーに接続できませんでした。';
+      } else {
+        errorMsg = err.message || 'リクエストの送信に失敗しました';
+      }
+      
+      setError(errorMsg);
       setLoading(false);
     }
   };

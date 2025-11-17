@@ -49,27 +49,65 @@ export async function POST(request: NextRequest) {
 
     // Supabase Storageにアップロード
     const supabase = createServerClient();
+    
+    console.log('Uploading image to Supabase Storage:', {
+      bucket: 'images',
+      filePath,
+      bufferSize: buffer.length,
+      contentType: `image/${extension === 'png' ? 'png' : 'jpeg'}`,
+    });
+    
     const { data, error } = await supabase.storage
       .from('images')
       .upload(filePath, buffer, {
         contentType: `image/${extension === 'png' ? 'png' : 'jpeg'}`,
-        upsert: false,
+        upsert: true, // 既存ファイルを上書き可能にする
       });
 
     if (error) {
-      throw error;
+      console.error('Supabase Storage upload error:', {
+        message: error.message,
+        statusCode: error.statusCode,
+        error: error,
+      });
+      
+      // より詳細なエラーメッセージを返す
+      let errorMessage = '画像のアップロードに失敗しました';
+      if (error.message?.includes('Bucket not found')) {
+        errorMessage = 'Storageバケット「images」が見つかりません。Supabaseダッシュボードでバケットを作成してください。';
+      } else if (error.message?.includes('new row violates row-level security')) {
+        errorMessage = 'StorageのRLSポリシーが設定されていません。SupabaseダッシュボードでStorageポリシーを設定してください。';
+      } else if (error.message) {
+        errorMessage = `画像のアップロードに失敗しました: ${error.message}`;
+      }
+      
+      return NextResponse.json(
+        { 
+          error: errorMessage,
+          details: error.message,
+          code: error.statusCode,
+        },
+        { status: 500 }
+      );
     }
+
+    console.log('Image uploaded successfully:', data);
 
     // 公開URLを取得
     const { data: urlData } = supabase.storage
       .from('images')
       .getPublicUrl(filePath);
 
+    console.log('Public URL:', urlData.publicUrl);
+
     return NextResponse.json({ url: urlData.publicUrl });
   } catch (error: any) {
     console.error('Upload error:', error);
     return NextResponse.json(
-      { error: error.message || '画像のアップロードに失敗しました' },
+      { 
+        error: error.message || '画像のアップロードに失敗しました',
+        details: error.stack,
+      },
       { status: 500 }
     );
   }
