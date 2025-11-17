@@ -68,7 +68,7 @@ export default function SystemAdminLoginPage() {
             </svg>
           </div>
           <h1 className="text-4xl font-bold gradient-text gradient-text-system-admin mb-3">システム管理者</h1>
-          <p className="text-[#8B7355] text-lg">美味しい管理を、もっと簡単に</p>
+          <p className="text-[#2C1810] text-lg font-semibold">美味しい管理を、もっと簡単に</p>
         </div>
 
         {/* ログインフォーム */}
@@ -91,7 +91,7 @@ export default function SystemAdminLoginPage() {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <svg className="w-5 h-5 text-[#8B7355]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-[#2C1810]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                   </svg>
                 </div>
@@ -113,7 +113,7 @@ export default function SystemAdminLoginPage() {
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <svg className="w-5 h-5 text-[#8B7355]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-[#2C1810]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                   </svg>
                 </div>
@@ -153,7 +153,7 @@ export default function SystemAdminLoginPage() {
         <div className="mt-8 text-center animate-fade-in">
           <a
             href="/admin/login"
-            className="inline-flex items-center space-x-2 text-[#8B7355] hover:text-[#FF6B35] transition-colors text-sm font-medium"
+            className="inline-flex items-center space-x-2 text-[#2C1810] hover:text-[#FF6B35] transition-colors text-sm font-medium"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
