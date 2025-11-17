@@ -39,8 +39,16 @@ export default function UserStorePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#F2F2F7] flex items-center justify-center">
-        <div className="text-[#8E8E93]">読み込み中...</div>
+      <div className="min-h-screen particle-bg flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-green-700 mb-4 animate-float shadow-lg">
+            <svg className="animate-spin h-8 w-8 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          </div>
+          <p className="text-[#8B7355] font-medium">読み込み中...</p>
+        </div>
       </div>
     );
   }
@@ -50,31 +58,33 @@ export default function UserStorePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F2F2F7] pb-20">
+    <div className="min-h-screen particle-bg pb-24">
       {/* 店舗プロフィールヘッダー */}
-      <div className="bg-white border-b border-[#C6C6C8] sticky top-0 z-10">
-        <div className="max-w-2xl mx-auto px-4 py-4">
+      <div className="glass border-b border-white/20 sticky top-0 z-50 backdrop-blur-xl">
+        <div className="max-w-2xl mx-auto px-4 py-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               {store.profile_image_url ? (
-                <img
-                  src={store.profile_image_url}
-                  alt={store.name}
-                  className="w-12 h-12 rounded-full object-cover"
-                />
+                <div className="w-14 h-14 rounded-2xl overflow-hidden shadow-lg border-2 border-white/50">
+                  <img
+                    src={store.profile_image_url}
+                    alt={store.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               ) : (
-                <div className="w-12 h-12 rounded-full bg-[#F2F2F7] flex items-center justify-center">
-                  <span className="text-2xl">🏪</span>
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center shadow-lg">
+                  <span className="text-3xl">🏪</span>
                 </div>
               )}
               <div>
-                <h1 className="text-xl font-bold text-[#1C1C1E]">{store.name}</h1>
-                <p className="text-sm text-[#8E8E93]">@{store.store_id}</p>
+                <h1 className="text-xl font-bold gradient-text">{store.name}</h1>
+                <p className="text-sm text-[#8B7355]">@{store.store_id}</p>
               </div>
             </div>
             <Link
               href="/user/access"
-              className="text-[#007AFF] text-sm hover:text-[#0051D5] transition-colors"
+              className="px-4 py-2 bg-white/80 border-2 border-green-500/30 text-green-600 rounded-xl font-semibold hover:bg-green-50 transition-all duration-300 text-sm"
             >
               店舗を変更
             </Link>
@@ -83,23 +93,24 @@ export default function UserStorePage() {
       </div>
 
       {/* メニュー選択カード */}
-      <div className="max-w-2xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 gap-6 animate-slide-up">
+      <div className="max-w-2xl mx-auto px-4 py-10">
+        <div className="grid grid-cols-1 gap-6">
           <Link
             href={`/user/${storeId}/daily`}
-            className="apple-card p-8 hover:shadow-lg transition-all duration-200 group"
+            className="restaurant-card p-8 group animate-slide-up border-2 border-transparent hover:border-blue-300/50"
+            style={{ animationDelay: '0.1s' }}
           >
             <div className="flex items-center space-x-6">
-              <div className="w-16 h-16 bg-[#007AFF] rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
               <div className="flex-1">
-                <h2 className="text-2xl font-bold text-[#1C1C1E] mb-2">本日のメニュー</h2>
-                <p className="text-[#8E8E93]">今日のメニューを確認</p>
+                <h2 className="text-2xl font-bold text-[#2C1810] mb-2 group-hover:gradient-text transition-all">本日のメニュー</h2>
+                <p className="text-[#8B7355]">今日のメニューを確認</p>
               </div>
-              <svg className="w-6 h-6 text-[#8E8E93] group-hover:text-[#007AFF] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-[#8B7355] group-hover:text-blue-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </div>
@@ -107,19 +118,20 @@ export default function UserStorePage() {
 
           <Link
             href={`/user/${storeId}/weekly`}
-            className="apple-card p-8 hover:shadow-lg transition-all duration-200 group"
+            className="restaurant-card p-8 group animate-slide-up border-2 border-transparent hover:border-green-300/50"
+            style={{ animationDelay: '0.2s' }}
           >
             <div className="flex items-center space-x-6">
-              <div className="w-16 h-16 bg-[#34C759] rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
               <div className="flex-1">
-                <h2 className="text-2xl font-bold text-[#1C1C1E] mb-2">週間メニュー</h2>
-                <p className="text-[#8E8E93]">1週間分のメニューを確認</p>
+                <h2 className="text-2xl font-bold text-[#2C1810] mb-2 group-hover:gradient-text transition-all">週間メニュー</h2>
+                <p className="text-[#8B7355]">1週間分のメニューを確認</p>
               </div>
-              <svg className="w-6 h-6 text-[#8E8E93] group-hover:text-[#34C759] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-[#8B7355] group-hover:text-green-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </div>
@@ -127,19 +139,20 @@ export default function UserStorePage() {
 
           <Link
             href={`/user/${storeId}/monthly`}
-            className="apple-card p-8 hover:shadow-lg transition-all duration-200 group"
+            className="restaurant-card p-8 group animate-slide-up border-2 border-transparent hover:border-orange-300/50"
+            style={{ animationDelay: '0.3s' }}
           >
             <div className="flex items-center space-x-6">
-              <div className="w-16 h-16 bg-[#FF9500] rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
               <div className="flex-1">
-                <h2 className="text-2xl font-bold text-[#1C1C1E] mb-2">月間メニュー</h2>
-                <p className="text-[#8E8E93]">1ヶ月分のメニューを確認</p>
+                <h2 className="text-2xl font-bold text-[#2C1810] mb-2 group-hover:gradient-text transition-all">月間メニュー</h2>
+                <p className="text-[#8B7355]">1ヶ月分のメニューを確認</p>
               </div>
-              <svg className="w-6 h-6 text-[#8E8E93] group-hover:text-[#FF9500] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-[#8B7355] group-hover:text-orange-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </div>
@@ -148,21 +161,21 @@ export default function UserStorePage() {
       </div>
 
       {/* タブバー */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#C6C6C8] safe-area-inset-bottom">
-        <div className="max-w-2xl mx-auto px-4 py-2">
+      <div className="fixed bottom-0 left-0 right-0 glass border-t border-white/20 backdrop-blur-xl safe-area-inset-bottom">
+        <div className="max-w-2xl mx-auto px-4 py-3">
           <div className="flex items-center justify-around">
             <Link
               href={`/user/${storeId}`}
-              className="flex flex-col items-center space-y-1 py-2 px-4 text-[#007AFF]"
+              className="flex flex-col items-center space-y-1 py-2 px-4 text-green-600 font-semibold"
             >
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
               </svg>
-              <span className="text-xs font-semibold">ホーム</span>
+              <span className="text-xs">ホーム</span>
             </Link>
             <Link
               href={`/user/${storeId}/daily`}
-              className="flex flex-col items-center space-y-1 py-2 px-4 text-[#8E8E93] hover:text-[#007AFF] transition-colors"
+              className="flex flex-col items-center space-y-1 py-2 px-4 text-[#8B7355] hover:text-blue-600 transition-colors"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -171,7 +184,7 @@ export default function UserStorePage() {
             </Link>
             <Link
               href={`/user/${storeId}/weekly`}
-              className="flex flex-col items-center space-y-1 py-2 px-4 text-[#8E8E93] hover:text-[#34C759] transition-colors"
+              className="flex flex-col items-center space-y-1 py-2 px-4 text-[#8B7355] hover:text-green-600 transition-colors"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -180,7 +193,7 @@ export default function UserStorePage() {
             </Link>
             <Link
               href={`/user/${storeId}/monthly`}
-              className="flex flex-col items-center space-y-1 py-2 px-4 text-[#8E8E93] hover:text-[#FF9500] transition-colors"
+              className="flex flex-col items-center space-y-1 py-2 px-4 text-[#8B7355] hover:text-orange-600 transition-colors"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -193,10 +206,3 @@ export default function UserStorePage() {
     </div>
   );
 }
-
-
-
-
-
-
-
