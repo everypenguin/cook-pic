@@ -51,21 +51,41 @@ body {
   min-height: 100vh;
 }
 
-/* テーマ別の背景 */
+/* テーマ別の背景とテキスト色 */
 .theme-system-admin {
   background: var(--system-admin-bg) !important;
+  color: #2C1810 !important;
+}
+
+.theme-system-admin * {
+  color: inherit;
 }
 
 .theme-store-admin {
   background: var(--store-admin-bg) !important;
+  color: #2C1810 !important;
+}
+
+.theme-store-admin * {
+  color: inherit;
 }
 
 .theme-user {
   background: var(--user-bg) !important;
+  color: #2C1810 !important;
+}
+
+.theme-user * {
+  color: inherit;
 }
 
 .theme-menu {
   background: var(--menu-bg) !important;
+  color: #2C1810 !important;
+}
+
+.theme-menu * {
+  color: inherit;
 }
 
 /* 2025年風のアニメーション */
@@ -149,38 +169,55 @@ body {
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.12);
+  color: #2C1810;
+}
+
+.glass p,
+.glass span,
+.glass h1,
+.glass h2,
+.glass h3,
+.glass h4,
+.glass h5,
+.glass h6,
+.glass div:not(.gradient-text):not([class*="gradient"]) {
+  color: #2C1810;
 }
 
 .glass-system-admin {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(177, 156, 217, 0.2);
-  box-shadow: 0 8px 32px rgba(177, 156, 217, 0.15);
-}
-
-.glass-store-admin {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(143, 196, 232, 0.2);
-  box-shadow: 0 8px 32px rgba(143, 196, 232, 0.15);
-}
-
-.glass-user {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(168, 213, 186, 0.2);
-  box-shadow: 0 8px 32px rgba(168, 213, 186, 0.15);
-}
-
-.glass-menu {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 179, 167, 0.25);
+  border: 1px solid rgba(177, 156, 217, 0.3);
+  box-shadow: 0 8px 32px rgba(177, 156, 217, 0.15);
+  color: #2C1810;
+}
+
+.glass-store-admin {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(143, 196, 232, 0.3);
+  box-shadow: 0 8px 32px rgba(143, 196, 232, 0.15);
+  color: #2C1810;
+}
+
+.glass-user {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(168, 213, 186, 0.3);
+  box-shadow: 0 8px 32px rgba(168, 213, 186, 0.15);
+  color: #2C1810;
+}
+
+.glass-menu {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 179, 167, 0.3);
   box-shadow: 0 8px 32px rgba(255, 179, 167, 0.15);
+  color: #2C1810;
 }
 
 /* グラデーションボタン（テーマ別） */
@@ -353,6 +390,19 @@ body {
     0 2px 8px rgba(0, 0, 0, 0.06),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #2C1810;
+}
+
+.restaurant-card p,
+.restaurant-card span,
+.restaurant-card h1,
+.restaurant-card h2,
+.restaurant-card h3,
+.restaurant-card h4,
+.restaurant-card h5,
+.restaurant-card h6,
+.restaurant-card div:not(.gradient-text):not([class*="gradient"]) {
+  color: #2C1810;
 }
 
 .restaurant-card:hover {
@@ -416,8 +466,17 @@ body {
   border-radius: 16px;
   padding: 14px 18px;
   transition: all 0.3s ease;
-  color: var(--restaurant-dark);
-  border: 2px solid rgba(0, 0, 0, 0.08);
+  color: #2C1810;
+  border: 2px solid rgba(0, 0, 0, 0.15);
+}
+
+.restaurant-input::placeholder {
+  color: #8B7355;
+  opacity: 0.7;
+}
+
+.restaurant-input:focus {
+  color: #2C1810;
 }
 
 .restaurant-input-system-admin:focus {
@@ -454,6 +513,31 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-weight: 800;
+  color: #2C1810; /* フォールバック（グラデーションが効かない場合） */
+}
+
+/* グラデーションテキストが使えない場合のフォールバック */
+@supports not (-webkit-background-clip: text) {
+  .gradient-text {
+    -webkit-text-fill-color: #2C1810;
+    color: #2C1810;
+  }
+  
+  .gradient-text-system-admin {
+    color: #7B5FA3;
+  }
+  
+  .gradient-text-store-admin {
+    color: #5A9BC4;
+  }
+  
+  .gradient-text-user {
+    color: #6BA87E;
+  }
+  
+  .gradient-text-menu {
+    color: #E67E5A;
+  }
 }
 
 .gradient-text-system-admin {
