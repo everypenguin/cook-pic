@@ -54,38 +54,38 @@ body {
 /* テーマ別の背景とテキスト色 */
 .theme-system-admin {
   background: var(--system-admin-bg) !important;
-  color: #2C1810 !important;
+  color: #1A1A1A !important;
 }
 
-.theme-system-admin * {
-  color: inherit;
+.theme-system-admin *:not(.gradient-text):not([class*="gradient-text"]) {
+  color: #1A1A1A !important;
 }
 
 .theme-store-admin {
   background: var(--store-admin-bg) !important;
-  color: #2C1810 !important;
+  color: #1A1A1A !important;
 }
 
-.theme-store-admin * {
-  color: inherit;
+.theme-store-admin *:not(.gradient-text):not([class*="gradient-text"]) {
+  color: #1A1A1A !important;
 }
 
 .theme-user {
   background: var(--user-bg) !important;
-  color: #2C1810 !important;
+  color: #1A1A1A !important;
 }
 
-.theme-user * {
-  color: inherit;
+.theme-user *:not(.gradient-text):not([class*="gradient-text"]) {
+  color: #1A1A1A !important;
 }
 
 .theme-menu {
   background: var(--menu-bg) !important;
-  color: #2C1810 !important;
+  color: #1A1A1A !important;
 }
 
-.theme-menu * {
-  color: inherit;
+.theme-menu *:not(.gradient-text):not([class*="gradient-text"]) {
+  color: #1A1A1A !important;
 }
 
 /* 2025年風のアニメーション */
@@ -513,53 +513,100 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-weight: 800;
-  color: #2C1810; /* フォールバック（グラデーションが効かない場合） */
+  color: #1A1A1A !important; /* フォールバック（グラデーションが効かない場合） */
+  text-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(255, 255, 255, 0.5);
+  position: relative;
+  z-index: 10;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 /* グラデーションテキストが使えない場合のフォールバック */
 @supports not (-webkit-background-clip: text) {
   .gradient-text {
-    -webkit-text-fill-color: #2C1810;
-    color: #2C1810;
+    -webkit-text-fill-color: #1A1A1A !important;
+    color: #1A1A1A !important;
+    text-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.9),
+      0 2px 4px rgba(0, 0, 0, 0.4);
   }
   
   .gradient-text-system-admin {
-    color: #7B5FA3;
+    color: #5A3F7B !important;
+    text-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.9),
+      0 2px 4px rgba(0, 0, 0, 0.4);
   }
   
   .gradient-text-store-admin {
-    color: #5A9BC4;
+    color: #3A6B8A !important;
+    text-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.9),
+      0 2px 4px rgba(0, 0, 0, 0.4);
   }
   
   .gradient-text-user {
-    color: #6BA87E;
+    color: #4A7A5E !important;
+    text-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.9),
+      0 2px 4px rgba(0, 0, 0, 0.4);
   }
   
   .gradient-text-menu {
-    color: #E67E5A;
+    color: #B85A3A !important;
+    text-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.9),
+      0 2px 4px rgba(0, 0, 0, 0.4);
   }
 }
 
 .gradient-text-system-admin {
   background: var(--system-admin-gradient);
+  text-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(255, 255, 255, 0.5);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .gradient-text-store-admin {
   background: var(--store-admin-gradient);
+  text-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(255, 255, 255, 0.5);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .gradient-text-user {
   background: var(--user-gradient);
+  text-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(255, 255, 255, 0.5);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .gradient-text-menu {
   background: var(--menu-gradient);
+  text-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.8),
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(255, 255, 255, 0.5);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 /* パーティクル背景効果（テーマ別） */
 .particle-bg {
   position: relative;
   overflow: hidden;
+}
+
+.particle-bg > * {
+  position: relative;
+  z-index: 10;
 }
 
 .particle-bg-system-admin::before {
