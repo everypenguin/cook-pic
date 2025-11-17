@@ -100,7 +100,6 @@ export default function CalendarMenuPage() {
   
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth() + 1;
-  const days = getDaysInMonth(year, month);
 
   useEffect(() => {
     const fetchStore = async () => {
@@ -124,12 +123,8 @@ export default function CalendarMenuPage() {
       
       setLoading(true);
       try {
+        const days = getDaysInMonth(year, month);
         const weekStartDate = getWeekStartDate(new Date(year, month - 1, 1));
-        const lastDayOfMonth = new Date(year, month, 0).getDate();
-        
-        // 月の最初の日と最後の日を取得
-        const firstDate = `${year}-${String(month).padStart(2, '0')}-01`;
-        const lastDate = `${year}-${String(month).padStart(2, '0')}-${String(lastDayOfMonth).padStart(2, '0')}`;
         
         // 並列でデータを取得
         const [weeklyRes, monthlyRes] = await Promise.all([
@@ -140,40 +135,60 @@ export default function CalendarMenuPage() {
         const weeklyMenus: WeeklyMenu[] = weeklyRes.data || [];
         const monthlyMenus: MonthlyMenu[] = monthlyRes.data || [];
         
-        // 各日のメニューを取得
+        // 各日のメニューを取得（日次メニューは一括取得できないため、必要な日のみ取得）
         const menuMap = new Map<string, DayMenu>();
         
+        // 今月の日付のみ処理（パフォーマンス向上のため）
+        const currentMonthDays = days.filter(day => {
+          return day.getMonth() === currentDate.getMonth() && day.getFullYear() === currentDate.getFullYear();
+        });
+        
+        // 日次メニューを一括取得するため、今月の最初と最後の日を取得
+        const firstDay = currentMonthDays[0];
+        const lastDay = currentMonthDays[currentMonthDays.length - 1];
+        
+        // 今月の日付ごとにメニューを設定
         for (const day of days) {
           const dateStr = day.toISOString().split('T')[0];
           const dayOfWeek = day.getDay();
+          const isCurrentMonthDay = day.getMonth() === currentDate.getMonth() && day.getFullYear() === currentDate.getFullYear();
           
-          // その日の日次メニューを取得
-          try {
-            const dailyRes = await api.get(`/menus/daily/${storeId}?date=${dateStr}`);
-            const dailyMenus: DailyMenu[] = dailyRes.data || [];
-            
-            // 週間メニューを取得
-            const weeklyMenu = weeklyMenus.find(m => {
-              const menuDate = new Date(m.week_start_date);
-              const menuDayOfWeek = menuDate.getDay();
-              const diff = Math.floor((day.getTime() - menuDate.getTime()) / (1000 * 60 * 60 * 24));
-              return diff >= 0 && diff < 7 && (menuDayOfWeek + diff) % 7 === m.day_of_week;
-            });
-            
-            menuMap.set(dateStr, {
-              date: dateStr,
-              dailyMenus,
-              weeklyMenu,
-              monthlyMenus,
-            });
-          } catch (error) {
-            // 日次メニューが取得できない場合は空配列
-            const weeklyMenu = weeklyMenus.find(m => m.day_of_week === dayOfWeek);
+          // 週間メニューを取得
+          const weeklyMenu = weeklyMenus.find(m => {
+            const menuDate = new Date(m.week_start_date);
+            const menuDayOfWeek = menuDate.getDay();
+            const diff = Math.floor((day.getTime() - menuDate.getTime()) / (1000 * 60 * 60 * 24));
+            return diff >= 0 && diff < 7 && (menuDayOfWeek + diff) % 7 === m.day_of_week;
+          });
+          
+          // 日次メニューは今月の日付のみ取得（パフォーマンス向上）
+          if (isCurrentMonthDay) {
+            try {
+              const dailyRes = await api.get(`/menus/daily/${storeId}?date=${dateStr}`);
+              const dailyMenus: DailyMenu[] = dailyRes.data || [];
+              
+              menuMap.set(dateStr, {
+                date: dateStr,
+                dailyMenus,
+                weeklyMenu,
+                monthlyMenus,
+              });
+            } catch (error) {
+              // 日次メニューが取得できない場合は空配列
+              menuMap.set(dateStr, {
+                date: dateStr,
+                dailyMenus: [],
+                weeklyMenu,
+                monthlyMenus,
+              });
+            }
+          } else {
+            // 前月・次月の日付は空のメニューを設定
             menuMap.set(dateStr, {
               date: dateStr,
               dailyMenus: [],
               weeklyMenu,
-              monthlyMenus,
+              monthlyMenus: [],
             });
           }
         }
@@ -189,7 +204,7 @@ export default function CalendarMenuPage() {
     if (storeId) {
       fetchMenus();
     }
-  }, [storeId, year, month]);
+  }, [storeId, year, month, currentDate]);
 
   const isCurrentMonth = (date: Date): boolean => {
     return date.getMonth() === currentDate.getMonth() && date.getFullYear() === currentDate.getFullYear();
@@ -240,6 +255,7 @@ export default function CalendarMenuPage() {
   }
 
   const selectedDayMenu = selectedDate ? dayMenus.get(selectedDate) : null;
+  const days = getDaysInMonth(year, month);
 
   return (
     <div className="min-h-screen theme-menu particle-bg-menu pb-24">
