@@ -50,11 +50,26 @@ export async function POST(request: NextRequest) {
     // Supabase Storageにアップロード
     const supabase = createServerClient();
     
+    // Service Role Keyの確認
+    const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!serviceRoleKey) {
+      console.error('SUPABASE_SERVICE_ROLE_KEY is missing');
+      return NextResponse.json(
+        { 
+          error: 'サーバー設定エラー',
+          details: 'SUPABASE_SERVICE_ROLE_KEYが設定されていません。Vercelの環境変数を確認してください。',
+        },
+        { status: 500 }
+      );
+    }
+    
     console.log('Uploading image to Supabase Storage:', {
       bucket: 'images',
       filePath,
       bufferSize: buffer.length,
       contentType: `image/${extension === 'png' ? 'png' : 'jpeg'}`,
+      supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
+      serviceRoleKeyLength: serviceRoleKey?.length || 0,
     });
     
     const { data, error } = await supabase.storage
@@ -68,15 +83,22 @@ export async function POST(request: NextRequest) {
       console.error('Supabase Storage upload error:', {
         message: error.message,
         statusCode: error.statusCode,
-        error: error,
+        error: JSON.stringify(error, null, 2),
       });
       
       // より詳細なエラーメッセージを返す
       let errorMessage = '画像のアップロードに失敗しました';
-      if (error.message?.includes('Bucket not found')) {
-        errorMessage = 'Storageバケット「images」が見つかりません。Supabaseダッシュボードでバケットを作成してください。';
-      } else if (error.message?.includes('new row violates row-level security')) {
-        errorMessage = 'StorageのRLSポリシーが設定されていません。SupabaseダッシュボードでStorageポリシーを設定してください。';
+      let errorDetails = error.message || 'Unknown error';
+      
+      if (error.message?.includes('Bucket not found') || error.message?.includes('does not exist')) {
+        errorMessage = 'Storageバケット「images」が見つかりません。';
+        errorDetails = 'Supabaseダッシュボード → Storage → 「New bucket」で「images」バケットを作成し、「Public bucket」を有効にしてください。';
+      } else if (error.message?.includes('new row violates row-level security') || error.message?.includes('RLS')) {
+        errorMessage = 'StorageのRLSポリシーが設定されていません。';
+        errorDetails = 'Supabase SQL Editorで supabase/SETUP_STORAGE.sql を実行してください。';
+      } else if (error.message?.includes('JWT')) {
+        errorMessage = '認証エラーが発生しました。';
+        errorDetails = 'Service Role Keyが正しく設定されているか確認してください。';
       } else if (error.message) {
         errorMessage = `画像のアップロードに失敗しました: ${error.message}`;
       }
@@ -84,8 +106,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { 
           error: errorMessage,
-          details: error.message,
+          details: errorDetails,
           code: error.statusCode,
+          fullError: process.env.NODE_ENV === 'development' ? JSON.stringify(error, null, 2) : undefined,
         },
         { status: 500 }
       );
