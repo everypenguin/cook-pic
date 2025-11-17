@@ -96,61 +96,19 @@ export default function UserStorePage() {
       <div className="max-w-2xl mx-auto px-4 py-10">
         <div className="grid grid-cols-1 gap-6">
           <Link
-            href={`/user/${storeId}/daily`}
+            href={`/user/${storeId}/calendar`}
             className="restaurant-card restaurant-card-user p-8 group animate-slide-up border-2 border-transparent hover:border-green-300/50"
             style={{ animationDelay: '0.1s' }}
           >
             <div className="flex items-center space-x-6">
-              <div className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300" style={{ background: 'linear-gradient(135deg, #A8D5BA 0%, #B8E0CA 100%)' }}>
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <div className="flex-1">
-                <h2 className="text-2xl font-bold text-[#2C1810] mb-2 group-hover:gradient-text-user transition-all">本日のメニュー</h2>
-                <p className="text-[#8B7355]">今日のメニューを確認</p>
-              </div>
-              <svg className="w-6 h-6 text-[#8B7355] group-hover:text-blue-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          </Link>
-
-          <Link
-            href={`/user/${storeId}/weekly`}
-            className="restaurant-card p-8 group animate-slide-up border-2 border-transparent hover:border-green-300/50"
-            style={{ animationDelay: '0.2s' }}
-          >
-            <div className="flex items-center space-x-6">
-              <div className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300" style={{ background: 'linear-gradient(135deg, #B8E0CA 0%, #C8EBD9 100%)' }}>
+              <div className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300" style={{ background: 'linear-gradient(135deg, #FFB3A7 0%, #FFC4BA 100%)' }}>
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
               <div className="flex-1">
-                <h2 className="text-2xl font-bold text-[#2C1810] mb-2 group-hover:gradient-text-user transition-all">週間メニュー</h2>
-                <p className="text-[#8B7355]">1週間分のメニューを確認</p>
-              </div>
-              <svg className="w-6 h-6 text-[#8B7355] group-hover:text-green-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </div>
-          </Link>
-
-          <Link
-            href={`/user/${storeId}/monthly`}
-            className="restaurant-card p-8 group animate-slide-up border-2 border-transparent hover:border-orange-300/50"
-            style={{ animationDelay: '0.3s' }}
-          >
-            <div className="flex items-center space-x-6">
-              <div className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300" style={{ background: 'linear-gradient(135deg, #A8D5BA 0%, #C8EBD9 100%)' }}>
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <div className="flex-1">
-                <h2 className="text-2xl font-bold text-[#2C1810] mb-2 group-hover:gradient-text-user transition-all">月間メニュー</h2>
-                <p className="text-[#8B7355]">1ヶ月分のメニューを確認</p>
+                <h2 className="text-2xl font-bold text-[#2C1810] mb-2 group-hover:gradient-text-user transition-all">カレンダー献立表</h2>
+                <p className="text-[#8B7355]">日次・週間・月間メニューをカレンダー形式で確認</p>
               </div>
               <svg className="w-6 h-6 text-[#8B7355] group-hover:text-orange-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -174,31 +132,13 @@ export default function UserStorePage() {
               <span className="text-xs">ホーム</span>
             </Link>
             <Link
-              href={`/user/${storeId}/daily`}
-              className="flex flex-col items-center space-y-1 py-2 px-4 text-[#8B7355] hover:text-blue-600 transition-colors"
+              href={`/user/${storeId}/calendar`}
+              className="flex flex-col items-center space-y-1 py-2 px-4 text-orange-600 font-semibold"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
               </svg>
-              <span className="text-xs">本日</span>
-            </Link>
-            <Link
-              href={`/user/${storeId}/weekly`}
-              className="flex flex-col items-center space-y-1 py-2 px-4 text-[#8B7355] hover:text-green-600 transition-colors"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span className="text-xs">週間</span>
-            </Link>
-            <Link
-              href={`/user/${storeId}/monthly`}
-              className="flex flex-col items-center space-y-1 py-2 px-4 text-[#8B7355] hover:text-orange-600 transition-colors"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span className="text-xs">月間</span>
+              <span className="text-xs">カレンダー</span>
             </Link>
           </div>
         </div>
