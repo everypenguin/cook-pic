@@ -47,7 +47,7 @@ export default function UserStorePage() {
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
           </div>
-          <p className="text-[#8B7355] font-medium">読み込み中...</p>
+          <p className="text-[#2C1810] font-medium">読み込み中...</p>
         </div>
       </div>
     );
@@ -79,7 +79,7 @@ export default function UserStorePage() {
               )}
               <div>
                 <h1 className="text-xl font-bold gradient-text gradient-text-user">{store.name}</h1>
-                <p className="text-sm text-[#8B7355]">@{store.store_id}</p>
+                <p className="text-sm text-[#2C1810] font-medium">@{store.store_id}</p>
               </div>
             </div>
             <Link
@@ -108,9 +108,9 @@ export default function UserStorePage() {
               </div>
               <div className="flex-1">
                 <h2 className="text-2xl font-bold text-[#2C1810] mb-2 group-hover:gradient-text-user transition-all">カレンダー献立表</h2>
-                <p className="text-[#8B7355]">日次・週間・月間メニューをカレンダー形式で確認</p>
+                <p className="text-[#2C1810] font-medium">日次・週間・月間メニューをカレンダー形式で確認</p>
               </div>
-              <svg className="w-6 h-6 text-[#8B7355] group-hover:text-orange-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-[#2C1810] group-hover:text-orange-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </div>

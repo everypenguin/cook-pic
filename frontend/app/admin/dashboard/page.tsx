@@ -167,9 +167,9 @@ export default function AdminDashboardPage() {
               </div>
               <div className="flex-1">
                 <h3 className="text-xl font-bold text-[#2C1810] mb-2 group-hover:gradient-text-store-admin transition-all">週間メニュー設定</h3>
-                <p className="text-sm text-[#8B7355] leading-relaxed">1週間分のメニューを設定</p>
+                <p className="text-sm text-[#2C1810] leading-relaxed font-medium">1週間分のメニューを設定</p>
               </div>
-              <svg className="w-6 h-6 text-[#8B7355] group-hover:text-green-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-[#2C1810] group-hover:text-green-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </div>
@@ -188,9 +188,9 @@ export default function AdminDashboardPage() {
               </div>
               <div className="flex-1">
                 <h3 className="text-xl font-bold text-[#2C1810] mb-2 group-hover:gradient-text-store-admin transition-all">月間メニュー設定</h3>
-                <p className="text-sm text-[#8B7355] leading-relaxed">1ヶ月分のメニューを設定</p>
+                <p className="text-sm text-[#2C1810] leading-relaxed font-medium">1ヶ月分のメニューを設定</p>
               </div>
-              <svg className="w-6 h-6 text-[#8B7355] group-hover:text-orange-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-[#2C1810] group-hover:text-orange-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </div>
@@ -209,9 +209,9 @@ export default function AdminDashboardPage() {
               </div>
               <div className="flex-1">
                 <h3 className="text-xl font-bold text-[#2C1810] mb-2 group-hover:gradient-text-store-admin transition-all">メニュー一覧・編集</h3>
-                <p className="text-sm text-[#8B7355] leading-relaxed">投稿済みメニューの編集・削除</p>
+                <p className="text-sm text-[#2C1810] leading-relaxed font-medium">投稿済みメニューの編集・削除</p>
               </div>
-              <svg className="w-6 h-6 text-[#8B7355] group-hover:text-purple-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-[#2C1810] group-hover:text-purple-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </div>
