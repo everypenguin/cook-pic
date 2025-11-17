@@ -55,7 +55,7 @@ export default function AdminDashboardPage() {
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
           </div>
-          <p className="text-[#8B7355] font-medium">読み込み中...</p>
+          <p className="text-[#2C1810] font-medium">読み込み中...</p>
         </div>
       </div>
     );
@@ -74,10 +74,10 @@ export default function AdminDashboardPage() {
                 </svg>
               </div>
               <div>
-                <h1 className="text-2xl font-bold gradient-text gradient-text-store-admin">店舗管理画面</h1>
+                <h1 className="text-2xl font-bold text-[#1A1A1A]">店舗管理画面</h1>
                 {store && (
-                  <p className="text-sm text-[#8B7355] mt-0.5">
-                    {store.name} <span className="text-[#8B7355]/60">({store.store_id})</span>
+                  <p className="text-sm text-[#2C1810] mt-0.5 font-medium">
+                    {store.name} <span className="text-[#2C1810]/70">({store.store_id})</span>
                   </p>
                 )}
               </div>
@@ -101,15 +101,15 @@ export default function AdminDashboardPage() {
           <div className="restaurant-card restaurant-card-store-admin p-8 mb-8 animate-slide-up">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-2xl font-bold gradient-text gradient-text-store-admin mb-4">店舗情報</h2>
+                <h2 className="text-2xl font-bold text-[#1A1A1A] mb-4">店舗情報</h2>
                 <div className="space-y-3">
                   <div>
-                    <span className="text-sm font-semibold text-[#8B7355]">店舗名:</span>
-                    <p className="text-lg font-bold text-[#2C1810] mt-1">{store.name}</p>
+                    <span className="text-sm font-semibold text-[#2C1810]">店舗名:</span>
+                    <p className="text-lg font-bold text-[#1A1A1A] mt-1">{store.name}</p>
                   </div>
                   <div>
-                    <span className="text-sm font-semibold text-[#8B7355]">店舗ID:</span>
-                    <p className="text-lg font-bold text-[#2C1810] mt-1">{store.store_id}</p>
+                    <span className="text-sm font-semibold text-[#2C1810]">店舗ID:</span>
+                    <p className="text-lg font-bold text-[#1A1A1A] mt-1">{store.store_id}</p>
                   </div>
                 </div>
                 <Link
@@ -146,9 +146,9 @@ export default function AdminDashboardPage() {
               </div>
               <div className="flex-1">
                 <h3 className="text-xl font-bold text-[#2C1810] mb-2 group-hover:gradient-text-store-admin transition-all">日間メニューを投稿</h3>
-                <p className="text-sm text-[#8B7355] leading-relaxed">今日のメニューを写真付きで投稿</p>
+                <p className="text-sm text-[#2C1810] leading-relaxed">今日のメニューを写真付きで投稿</p>
               </div>
-              <svg className="w-6 h-6 text-[#8B7355] group-hover:text-blue-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-[#2C1810] group-hover:text-blue-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </div>
