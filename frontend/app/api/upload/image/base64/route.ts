@@ -43,8 +43,27 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(base64Data, 'base64');
 
     // ファイル拡張子を決定
-    const extension = filename?.split('.').pop() || 'jpg';
-    const uploadFilename = filename || `${randomUUID()}.${extension}`;
+    const extension = filename?.split('.').pop()?.toLowerCase() || 'jpg';
+    
+    // ファイル名をサニタイズ（日本語、スペース、特殊文字を除去）
+    let sanitizedFilename: string;
+    if (filename) {
+      // 拡張子を除いたファイル名を取得
+      const nameWithoutExt = filename.substring(0, filename.lastIndexOf('.')) || filename;
+      // 日本語、スペース、特殊文字を除去して、URL-safeな形式に変換
+      sanitizedFilename = nameWithoutExt
+        .replace(/[^\w\-]/g, '_') // 英数字、ハイフン、アンダースコア以外をアンダースコアに置換
+        .replace(/_+/g, '_') // 連続するアンダースコアを1つに
+        .replace(/^_|_$/g, '') // 先頭・末尾のアンダースコアを除去
+        .substring(0, 50) // 長さを制限
+        || 'image'; // 空の場合は'image'を使用
+    } else {
+      sanitizedFilename = 'image';
+    }
+    
+    // UUIDを追加して一意性を確保
+    const uniqueId = randomUUID().substring(0, 8);
+    const uploadFilename = `${sanitizedFilename}_${uniqueId}.${extension}`;
     const filePath = `menus/${storeId}/${uploadFilename}`;
 
     // Supabase Storageにアップロード
