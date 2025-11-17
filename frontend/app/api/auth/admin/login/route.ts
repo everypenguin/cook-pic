@@ -15,6 +15,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    console.log('Login attempt for store_id:', store_id);
+
     const supabase = createServerClient();
     const { data: store, error } = await supabase
       .from('stores')
@@ -22,17 +24,48 @@ export async function POST(request: NextRequest) {
       .eq('store_id', store_id)
       .single();
 
-    if (error || !store) {
+    if (error) {
+      console.error('Supabase query error:', error);
+      console.error('Error code:', error.code);
+      console.error('Error message:', error.message);
+      
+      // テーブルが存在しない場合のエラー
+      if (error.code === 'PGRST116' || error.message?.includes('does not exist')) {
+        return NextResponse.json(
+          { error: '店舗テーブルが存在しません。データベースマイグレーションを実行してください。', details: error.message },
+          { status: 500 }
+        );
+      }
+      
+      // レコードが見つからない場合
+      if (error.code === 'PGRST116') {
+        return NextResponse.json(
+          { error: '店舗IDが見つかりません。店舗IDを確認してください。', details: `店舗ID: ${store_id}` },
+          { status: 404 }
+        );
+      }
+      
       return NextResponse.json(
-        { error: '店舗IDまたはパスワードが正しくありません' },
-        { status: 401 }
+        { error: 'データベースエラーが発生しました', details: error.message },
+        { status: 500 }
       );
     }
 
+    if (!store) {
+      console.error('Store not found for store_id:', store_id);
+      return NextResponse.json(
+        { error: '店舗IDが見つかりません。店舗IDを確認してください。', details: `店舗ID: ${store_id}` },
+        { status: 404 }
+      );
+    }
+
+    console.log('Store found:', store.store_id, store.name);
+
     const isValidPassword = await bcrypt.compare(password, store.password_hash);
     if (!isValidPassword) {
+      console.error('Invalid password for store_id:', store_id);
       return NextResponse.json(
-        { error: '店舗IDまたはパスワードが正しくありません' },
+        { error: 'パスワードが正しくありません' },
         { status: 401 }
       );
     }

@@ -35,7 +35,7 @@ export default function AdminLoginPage() {
   return (
     <div className="min-h-screen bg-white flex items-center justify-center px-4">
       <div className="w-full max-w-md">
-        <h1 className="text-3xl font-bold text-center mb-8">管理者ログイン</h1>
+        <h1 className="text-3xl font-bold text-center mb-8">店舗管理ログイン</h1>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="store_id" className="block text-sm font-medium text-gray-700 mb-2">
@@ -76,6 +76,24 @@ export default function AdminLoginPage() {
             {loading ? 'ログイン中...' : 'ログイン'}
           </button>
         </form>
+        <div className="mt-6 text-center space-y-2">
+          <div>
+            <a
+              href="/system-admin/login"
+              className="text-[#5856D6] hover:underline text-sm"
+            >
+              システム管理者ログインへ
+            </a>
+          </div>
+          <div>
+            <a
+              href="/user/access"
+              className="text-[#007AFF] hover:underline text-sm"
+            >
+              利用者アクセスへ
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );

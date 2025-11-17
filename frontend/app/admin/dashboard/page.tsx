@@ -57,7 +57,7 @@ export default function AdminDashboardPage() {
     <div className="min-h-screen bg-[#F2F2F7]">
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8 animate-fade-in">
-          <h1 className="text-4xl font-bold text-[#1C1C1E]">管理画面</h1>
+          <h1 className="text-4xl font-bold text-[#1C1C1E]">店舗管理画面</h1>
           <button
             onClick={handleLogout}
             className="text-[#8E8E93] hover:text-[#1C1C1E] transition-colors"
