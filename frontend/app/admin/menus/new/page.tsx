@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { Suspense, useEffect, useMemo, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import api from '@/lib/api';
@@ -50,7 +50,7 @@ function getWeekStartDate(date: Date): string {
   return monday.toISOString().split('T')[0];
 }
 
-export default function NewMenuPage() {
+function MenuSettingsContent() {
   const searchParams = useSearchParams();
   const [categories, setCategories] = useState<CategoryOption[]>([]);
 
@@ -137,6 +137,14 @@ export default function NewMenuPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function NewMenuPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-base-off flex items-center justify-center text-text-light">読み込み中...</div>}>
+      <MenuSettingsContent />
+    </Suspense>
   );
 }
 
